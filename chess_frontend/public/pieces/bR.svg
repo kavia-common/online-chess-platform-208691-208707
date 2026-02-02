@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45">
+  <title>Black Rook</title>
+  <g fill="none" fill-rule="evenodd" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#111827" d="M12 10h21v6H12z"/>
+    <path fill="#111827" d="M14 16h17v10c0 4-3 7-8.5 7S14 30 14 26V16z"/>
+    <path fill="#111827" d="M13 33h19v3H13z"/>
+    <path fill="#111827" d="M12 36h21v4H12z"/>
+    <path d="M14 10V8h4v2m4 0V8h4v2m4 0V8h4v2" />
+  </g>
+</svg>

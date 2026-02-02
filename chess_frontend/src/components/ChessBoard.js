@@ -1,5 +1,6 @@
 import React from "react";
-import { isDarkSquare, pieceToGlyph, toSquare } from "../utils/chessboard";
+import { isDarkSquare, toSquare } from "../utils/chessboard";
+import { pieceToAlt, pieceToAssetSrc } from "../utils/pieces";
 
 /**
  * Board is rendered from White's perspective:
@@ -32,7 +33,8 @@ export default function ChessBoard({
       <div className="boardGrid" role="grid" aria-disabled={disabled ? "true" : "false"}>
         {BOARD_SQUARES.map((sq) => {
           const piece = position?.[sq] || "";
-          const glyph = pieceToGlyph(piece);
+          const src = pieceToAssetSrc(piece);
+          const alt = pieceToAlt(piece);
 
           const dark = isDarkSquare(sq);
           const isSelected = selectedSquare === sq;
@@ -57,11 +59,15 @@ export default function ChessBoard({
               onClick={() => onSquareClick(sq)}
               disabled={disabled}
               role="gridcell"
-              aria-label={`${sq}${piece ? ` ${piece}` : ""}`}
+              aria-label={`${sq}${piece ? ` ${alt || piece}` : ""}`}
             >
-              <span className="piece" aria-hidden="true">
-                {glyph}
-              </span>
+              {src ? (
+                <img className="pieceImg" src={src} alt={alt} draggable="false" />
+              ) : (
+                // Keep DOM structure stable even when empty: no piece.
+                <span className="pieceImgPlaceholder" aria-hidden="true" />
+              )}
+
               <span className="squareLabel" aria-hidden="true">
                 {sq}
               </span>

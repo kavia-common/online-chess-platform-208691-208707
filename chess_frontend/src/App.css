@@ -349,13 +349,25 @@ body {
   background: linear-gradient(180deg, rgba(14, 25, 22, 1), rgba(11, 18, 16, 1));
 }
 
-.piece {
-  /* Ensure glyph rendering doesn't change line box height across different glyphs */
+/* Piece rendering (SVG assets) */
+.pieceImg {
+  /* Ensure the image never changes the square's size; it must fit inside. */
   display: block;
-  font-size: clamp(22px, 4.2vw, 40px);
-  line-height: 1;
-  color: rgba(240, 255, 244, 0.95);
-  text-shadow: 0 0 10px var(--glow);
+  width: clamp(28px, 5.2vw, 46px);
+  height: clamp(28px, 5.2vw, 46px);
+  object-fit: contain;
+
+  /* A bit of depth while preserving the retro glow */
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 10px var(--glow));
+  user-select: none;
+  pointer-events: none; /* clicking still targets the button/square */
+}
+
+.pieceImgPlaceholder {
+  display: block;
+  width: clamp(28px, 5.2vw, 46px);
+  height: clamp(28px, 5.2vw, 46px);
+  pointer-events: none;
 }
 
 .squareLabel {
