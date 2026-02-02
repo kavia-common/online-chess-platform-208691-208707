@@ -363,6 +363,21 @@ body {
   pointer-events: none; /* clicking still targets the button/square */
 }
 
+/* Make dark pieces readable on dark squares by adding a subtle light edge/halo.
+   We use multiple drop-shadows to approximate an outline without altering SVG files. */
+.pieceImgBlack {
+  filter:
+    drop-shadow(0 0 0.9px rgba(240, 255, 244, 0.95))
+    drop-shadow(0 0 1.6px rgba(240, 255, 244, 0.55))
+    drop-shadow(0 10px 14px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 10px var(--glow));
+}
+
+/* Keep white pieces consistent with existing styling. */
+.pieceImgWhite {
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 10px var(--glow));
+}
+
 .pieceImgPlaceholder {
   display: block;
   width: clamp(28px, 5.2vw, 46px);

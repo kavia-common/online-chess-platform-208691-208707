@@ -62,7 +62,12 @@ export default function ChessBoard({
               aria-label={`${sq}${piece ? ` ${alt || piece}` : ""}`}
             >
               {src ? (
-                <img className="pieceImg" src={src} alt={alt} draggable="false" />
+                <img
+                  className={`pieceImg ${piece === piece.toLowerCase() ? "pieceImgBlack" : "pieceImgWhite"}`}
+                  src={src}
+                  alt={alt}
+                  draggable="false"
+                />
               ) : (
                 // Keep DOM structure stable even when empty: no piece.
                 <span className="pieceImgPlaceholder" aria-hidden="true" />
