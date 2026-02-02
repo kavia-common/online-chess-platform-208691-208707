@@ -1,6 +1,15 @@
 const DEFAULT_BASE_URL = process.env.REACT_APP_CHESS_API_URL || "http://localhost:3001";
 
 /**
+ * Join a base URL + path safely (avoids `//` and supports base URLs with path prefixes).
+ */
+function joinUrl(baseUrl, path) {
+  const base = (baseUrl || "").replace(/\/+$/, "");
+  const p = (path || "").startsWith("/") ? path : `/${path}`;
+  return `${base}${p}`;
+}
+
+/**
  * Best-effort JSON parsing helper.
  * Backend may not be fully implemented yet; we still want clean errors for the UI.
  */
@@ -15,7 +24,7 @@ async function parseJsonSafe(response) {
 }
 
 async function requestJson(path, options = {}) {
-  const url = `${DEFAULT_BASE_URL}${path}`;
+  const url = joinUrl(DEFAULT_BASE_URL, path);
   const resp = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
