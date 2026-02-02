@@ -10,6 +10,7 @@ import {
   submitMove,
 } from "./api/chessApi";
 import { buildFallbackStartPosition } from "./utils/chessboard";
+import { applyTheme, getStoredOrPreferredTheme } from "./utils/theme";
 
 /**
  * Normalize backend game state into a position map:
@@ -49,6 +50,8 @@ function App() {
     message: "Checking backend…",
   });
 
+  const [theme, setTheme] = useState(() => getStoredOrPreferredTheme());
+
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -60,6 +63,15 @@ function App() {
   const [lastMove, setLastMove] = useState(null);
 
   const apiReady = useMemo(() => backendStatus.ok, [backendStatus.ok]);
+
+  useEffect(() => {
+    // Apply on mount and whenever theme changes.
+    applyTheme(theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((t) => (t === "dark" ? "light" : "dark"));
+  }, []);
 
   const loadFromBackend = useCallback(async () => {
     setLoading(true);
@@ -227,6 +239,19 @@ function App() {
             <span className="StatusText">
               {backendStatus.ok ? "Backend: OK" : "Backend: OFFLINE"}
             </span>
+          </div>
+
+          <div className="ThemeToggle" aria-label="Theme">
+            <span className="ThemeToggleLabel">Theme</span>
+            <button
+              className="BtnToggle"
+              type="button"
+              onClick={toggleTheme}
+              aria-pressed={theme === "dark" ? "true" : "false"}
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            >
+              {theme === "dark" ? "Dark" : "Light"}
+            </button>
           </div>
 
           <button className="Btn" type="button" onClick={onRestart} disabled={busy}>

@@ -1,4 +1,6 @@
-:root {
+/* Default theme (dark) */
+:root,
+:root[data-theme="dark"] {
   --bg: #07080a;
   --surface: #0e1216;
   --surface2: #0b0f13;
@@ -21,6 +23,37 @@
 
   --radius: 14px;
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Helper colors for gradients */
+  --accent-rgb: 118, 255, 142;
+  --accent2-rgb: 59, 130, 246;
+}
+
+/* Light theme overrides */
+:root[data-theme="light"] {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface2: #f1f5f9;
+  --border: rgba(2, 6, 23, 0.12);
+
+  --text: rgba(2, 6, 23, 0.92);
+  --muted: rgba(2, 6, 23, 0.62);
+
+  /* keep the retro green/blue accents but slightly adjusted for light surfaces */
+  --accent: #16a34a;
+  --accent2: #2563eb;
+
+  --danger: #ef4444;
+  --warn: #d97706;
+
+  --squareLight: #e2e8f0;
+  --squareDark: #cbd5e1;
+
+  --shadow: rgba(2, 6, 23, 0.18);
+  --glow: rgba(34, 197, 94, 0.22);
+
+  --accent-rgb: 22, 163, 74;
+  --accent2-rgb: 37, 99, 235;
 }
 
 * {
@@ -30,8 +63,8 @@
 body {
   margin: 0;
   font-family: var(--mono);
-  background: radial-gradient(1200px 700px at 20% 10%, rgba(118, 255, 142, 0.09), transparent 55%),
-    radial-gradient(900px 600px at 80% 0%, rgba(59, 130, 246, 0.10), transparent 60%),
+  background: radial-gradient(1200px 700px at 20% 10%, rgba(var(--accent-rgb), 0.10), transparent 55%),
+    radial-gradient(900px 600px at 80% 0%, rgba(var(--accent2-rgb), 0.11), transparent 60%),
     var(--bg);
   color: var(--text);
 }
@@ -49,8 +82,45 @@ body {
   justify-content: space-between;
   padding: 18px 20px;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(14, 18, 22, 0.92), rgba(7, 8, 10, 0.85));
+  background: linear-gradient(180deg, rgba(var(--accent2-rgb), 0.08), rgba(var(--accent-rgb), 0.04)),
+    color-mix(in srgb, var(--surface) 85%, transparent);
   backdrop-filter: blur(6px);
+}
+
+/* Theme toggle button: same base as Btn but more compact, with clear state */
+.ThemeToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ThemeToggleLabel {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.BtnToggle {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 10px 24px var(--shadow);
+}
+
+.BtnToggle:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent2) 55%, var(--border));
+}
+
+.BtnToggle:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent2) 75%, transparent);
+  outline-offset: 2px;
 }
 
 .Brand {
@@ -179,7 +249,7 @@ body {
   padding: 12px 12px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(14, 18, 22, 0.70);
+  background: color-mix(in srgb, var(--surface) 74%, transparent);
   box-shadow: 0 10px 24px var(--shadow);
 }
 
@@ -202,7 +272,7 @@ body {
   padding: 14px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(14, 18, 22, 0.72);
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
   box-shadow: 0 20px 50px var(--shadow);
 }
 
@@ -241,15 +311,15 @@ body {
 .panel {
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(14, 18, 22, 0.70);
+  background: color-mix(in srgb, var(--surface) 74%, transparent);
   box-shadow: 0 18px 42px var(--shadow);
   overflow: hidden;
 }
 
 .panelHeader {
   padding: 12px 12px;
-  border-bottom: 1px solid rgba(118, 255, 142, 0.18);
-  background: rgba(118, 255, 142, 0.06);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
 .panelTitle {
@@ -412,7 +482,7 @@ body {
 .Footer {
   padding: 14px 16px 20px;
   border-top: 1px solid var(--border);
-  background: rgba(7, 8, 10, 0.65);
+  background: color-mix(in srgb, var(--surface2) 75%, transparent);
   display: flex;
   justify-content: center;
 }
