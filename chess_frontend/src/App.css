@@ -1,104 +1,389 @@
-/* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --bg: #07080a;
+  --surface: #0e1216;
+  --surface2: #0b0f13;
+  --border: rgba(118, 255, 142, 0.22);
+
+  --text: rgba(240, 255, 244, 0.92);
+  --muted: rgba(240, 255, 244, 0.68);
+
+  --accent: #76ff8e;
+  --accent2: #3b82f6;
+
+  --danger: #ef4444;
+  --warn: #f59e0b;
+
+  --squareLight: #1a2a24;
+  --squareDark: #0e1916;
+
+  --shadow: rgba(0, 0, 0, 0.55);
+  --glow: rgba(118, 255, 142, 0.25);
+
+  --radius: 14px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* {
+  box-sizing: border-box;
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+body {
+  margin: 0;
+  font-family: var(--mono);
+  background: radial-gradient(1200px 700px at 20% 10%, rgba(118, 255, 142, 0.09), transparent 55%),
+    radial-gradient(900px 600px at 80% 0%, rgba(59, 130, 246, 0.10), transparent 60%),
+    var(--bg);
+  color: var(--text);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
+/* App Shell Layout */
+.AppShell {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.TopBar {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(14, 18, 22, 0.92), rgba(7, 8, 10, 0.85));
+  backdrop-filter: blur(6px);
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.Brand {
+  display: flex;
+  gap: 14px;
+  align-items: center;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+.BrandMark {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(118, 255, 142, 0.06);
+  box-shadow: 0 10px 30px var(--shadow), 0 0 0 1px rgba(0,0,0,0.35) inset;
+  font-size: 22px;
+}
+
+.Title {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.Subtitle {
+  margin: 4px 0 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.TopBarRight {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.StatusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(118, 255, 142, 0.05);
+  font-size: 12px;
+  color: var(--text);
+}
+
+.StatusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--warn);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.45);
+}
+
+.StatusOk .StatusDot {
+  background: var(--accent);
+  box-shadow: 0 0 14px rgba(118, 255, 142, 0.45);
+}
+
+.StatusWarn {
+  border-color: rgba(245, 158, 11, 0.30);
+  background: rgba(245, 158, 11, 0.06);
+}
+
+.Btn {
+  appearance: none;
+  border: 1px solid rgba(118, 255, 142, 0.35);
+  background: rgba(118, 255, 142, 0.10);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 12px 30px var(--shadow);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.Btn:hover {
+  background: rgba(118, 255, 142, 0.14);
+  border-color: rgba(118, 255, 142, 0.45);
+  transform: translateY(-1px);
+}
+
+.Btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
+.Main {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 18px 16px 26px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 16px;
+  flex: 1;
+}
+
+.BoardSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.SideSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.Hud {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.HudRow {
+  padding: 12px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: rgba(14, 18, 22, 0.70);
+  box-shadow: 0 10px 24px var(--shadow);
+}
+
+.HudLabel {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.HudValue {
+  display: block;
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.BoardWrap {
+  padding: 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: rgba(14, 18, 22, 0.72);
+  box-shadow: 0 20px 50px var(--shadow);
+}
+
+.HelpText {
+  margin-top: 12px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 8px 0;
+}
+
+.warn {
+  color: rgba(245, 158, 11, 0.95);
+  font-size: 12px;
+  margin: 8px 0;
+}
+
+.ErrorBanner {
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.10);
+  color: rgba(255, 230, 230, 0.95);
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-shadow: 0 14px 30px var(--shadow);
+}
+
+.LoadingLine {
+  color: var(--muted);
+  font-size: 12px;
+  padding: 6px 2px;
+}
+
+/* Panels */
+.panel {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: rgba(14, 18, 22, 0.70);
+  box-shadow: 0 18px 42px var(--shadow);
+  overflow: hidden;
+}
+
+.panelHeader {
+  padding: 12px 12px;
+  border-bottom: 1px solid rgba(118, 255, 142, 0.18);
+  background: rgba(118, 255, 142, 0.06);
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.panelBody {
+  padding: 12px 12px;
+}
+
+.panelScroll {
+  max-height: 360px;
+  overflow: auto;
+}
+
+.movesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.moveRow {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(118, 255, 142, 0.14);
+}
+
+.moveRow:last-child {
+  border-bottom: none;
+}
+
+.moveIndex {
+  color: rgba(118, 255, 142, 0.92);
+  font-size: 12px;
+}
+
+.moveText {
+  color: var(--text);
+  font-size: 12px;
+}
+
+/* Board */
+.boardFrame {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.boardGrid {
+  width: min(560px, 100%);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 18px 48px var(--shadow), 0 0 0 1px rgba(0,0,0,0.45) inset;
+  border: 1px solid rgba(118, 255, 142, 0.22);
+}
+
+.square {
+  position: relative;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+}
+
+.square:disabled {
+  cursor: not-allowed;
   opacity: 0.9;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.squareLight {
+  background: linear-gradient(180deg, rgba(26, 42, 36, 1), rgba(19, 33, 28, 1));
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.squareDark {
+  background: linear-gradient(180deg, rgba(14, 25, 22, 1), rgba(11, 18, 16, 1));
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+.piece {
+  font-size: clamp(22px, 4.2vw, 40px);
+  line-height: 1;
+  color: rgba(240, 255, 244, 0.95);
+  text-shadow: 0 0 10px var(--glow);
+}
+
+.squareLabel {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  font-size: 9px;
+  color: rgba(240, 255, 244, 0.40);
+}
+
+.squareSelected {
+  outline: 2px solid rgba(59, 130, 246, 0.85);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35) inset;
+}
+
+.squareLastFrom {
+  box-shadow: 0 0 0 2px rgba(118, 255, 142, 0.30) inset;
+}
+
+.squareLastTo {
+  box-shadow: 0 0 0 2px rgba(118, 255, 142, 0.55) inset;
+}
+
+/* Footer */
+.Footer {
+  padding: 14px 16px 20px;
+  border-top: 1px solid var(--border);
+  background: rgba(7, 8, 10, 0.65);
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .Main {
+    grid-template-columns: 1fr;
+  }
+  .panelScroll {
+    max-height: 260px;
+  }
+  .Hud {
+    grid-template-columns: 1fr;
   }
 }
