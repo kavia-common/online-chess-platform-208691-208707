@@ -433,14 +433,28 @@ body {
   pointer-events: none; /* clicking still targets the button/square */
 }
 
-/* Make dark pieces readable on dark squares by adding a subtle light edge/halo.
+/* Make dark pieces readable by adding a light edge/halo.
    We use multiple drop-shadows to approximate an outline without altering SVG files. */
 .pieceImgBlack {
   filter:
-    drop-shadow(0 0 0.9px rgba(240, 255, 244, 0.95))
-    drop-shadow(0 0 1.6px rgba(240, 255, 244, 0.55))
+    drop-shadow(0 0 1px rgba(240, 255, 244, 0.85))
+    drop-shadow(0 0 2px rgba(240, 255, 244, 0.45))
     drop-shadow(0 10px 14px rgba(0, 0, 0, 0.45))
     drop-shadow(0 0 10px var(--glow));
+}
+
+/* In dark theme, black pieces on dark squares need an even stronger edge to avoid disappearing.
+   This is intentionally scoped to: dark theme + dark square + black piece image. */
+:root[data-theme="dark"] .squareDark .pieceImgBlack {
+  filter:
+    /* crisp "stroke" */
+    drop-shadow(0 0 1.25px rgba(240, 255, 244, 0.98))
+    drop-shadow(0 0 1.25px rgba(240, 255, 244, 0.98))
+    /* soft halo */
+    drop-shadow(0 0 3.25px rgba(240, 255, 244, 0.55))
+    /* depth + retro glow */
+    drop-shadow(0 10px 14px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.18));
 }
 
 /* Keep white pieces consistent with existing styling. */
